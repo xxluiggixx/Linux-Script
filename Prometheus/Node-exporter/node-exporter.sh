@@ -36,3 +36,6 @@ EOF
 systemctl daemon-reload
 systemctl enable node_exporter
 systemctl start node_exporter
+
+#Port firewall
+ufw allow 9100/tcp
