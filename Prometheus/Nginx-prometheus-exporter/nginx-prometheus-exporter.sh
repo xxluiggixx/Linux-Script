@@ -43,7 +43,7 @@ User=nginx_exporter
 Group=nginx_exporter
 Type=simple
 ExecStart=/usr/local/bin/nginx-prometheus-exporter \
-    -web.listen-address=$($local_ip):9113 \
+    -web.listen-address=$local_ip:9113 \
     -nginx.scrape-uri http://127.0.0.1:9113/metrics
 SyslogIdentifier=nginx_prometheus_exporter
 Restart=always
