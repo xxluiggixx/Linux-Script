@@ -1,4 +1,9 @@
 #!/bin/bash
+#===============>INFORMATION<=================
+#Repositore: https://github.com/glowroot/glowroot/releases/tag/v0.13.6
+#Created: 20-04-23
+#Author: García Salado Luis María
+
 path='/u01/app/tomcat/apache-tomcat/'
 file='glowroot-0.13.6-dist.zip'
 

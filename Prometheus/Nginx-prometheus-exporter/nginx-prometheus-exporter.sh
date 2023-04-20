@@ -1,7 +1,9 @@
 #!/bin/bash
 
-# INFORMATION
-# Guide: https://igunawan.com/how-to-monitor-basic-metrics-from-nginx-with-prometheus-and-grafana/
+#===============>INFORMATION<=================
+#Repositore: https://igunawan.com/how-to-monitor-basic-metrics-from-nginx-with-prometheus-and-grafana/
+#Created: 20-04-23
+#Author: García Salado Luis María
 
 #Modificar por la ip de la maquina
 read -p 'Ingrese la ip del equipo' local_ip

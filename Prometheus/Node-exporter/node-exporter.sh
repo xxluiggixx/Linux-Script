@@ -1,8 +1,12 @@
 #!/bin/bash
 
-# INFORMATION
+#===============>INFORMATION<=================
 # The node_exporter listens on HTTP port 9100 by default
 # GUIDE: https://devconnected.com/how-to-setup-grafana-and-prometheus-on-linux/#V_-_Installing_the_Node_Exporter_to_monitor_Linux_metrics
+#Created: 20-04-23
+#Author: García Salado Luis María
+
+
 
 node_exporter_version="node_exporter-1.5.0.linux-amd64"
 
