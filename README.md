@@ -1,2 +1,2 @@
 # Linux-Script
-Several linux script
+Several linux script for different propose
