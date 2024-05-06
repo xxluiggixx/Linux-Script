@@ -32,8 +32,10 @@ if [[ $? -eq 0 ]]
     exit
 fi    
 
+# Reload and enable services
 systemctl daemon-reload
 systemctl enable wazuh-agent
-systemctl start wazuh-agent
 systemctl start wazuh-agent.service
+
+#Create user and add wazuh group
 useradd seguridad && usermod -aG wazuh seguridad
