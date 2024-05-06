@@ -13,12 +13,12 @@ read -p "Wazuh Manager IP: " WazuhManager
 if [[ $OS = "Ubuntu" || $OS = "Debian" ]]
     then
     echo $OS
-    echo "Install Wazuh Agent"
+    echo "Installing Wazuh Agent"
     wget $DEB_REPOSITORIE -O wazuh-agent.deb && chmod +x wazuh-agent.deb
     WAZUH_MANAGER='$WazuhManager' dpkg -i wazuh-agent.deb
     else
     echo $OS
-    echo "Install Wazuh Agent"
+    echo "Installing Wazuh Agent"
     wget $RPM_REPOSITORIE -O wazuh-agent.rpm && chmod +x wazuh-agent.rpm
     WAZUH_MANAGER='$WazuhManager' rpm -i wazuh-agent.rpm
 
@@ -29,7 +29,7 @@ if [[ $? -eq 0 ]]
     rm wazuh-agent.deb
     else
     echo "Error installing agent"
-    exit
+    exit 1
 fi    
 
 # Reload and enable services
