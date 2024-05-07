@@ -11,7 +11,6 @@ OS=$(hostnamectl | grep -i "operating" | awk '{print $3}')
 
 read -p "Wazuh Manager IP: " WazuhManager 
 read -p "New user name: " NEWUSER 
-read -ps "Password for $NEWUSER: " PASS
 
 echo "##############################################################################"
 echo "##############################################################################"
