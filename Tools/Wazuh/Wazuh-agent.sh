@@ -39,3 +39,5 @@ systemctl start wazuh-agent.service
 
 #Create user and add wazuh group
 useradd seguridad && usermod -aG wazuh seguridad
+#Add user config ssh
+echo "AllowUsers seguridad" >> /etc/ssh/sshd_config
