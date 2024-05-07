@@ -11,20 +11,23 @@ OS=$(hostnamectl | grep -i "operating" | awk '{print $3}')
 
 read -p "Wazuh Manager IP: " WazuhManager 
 read -p "New user name: " NEWUSER 
-read -ps 'Password for $NEWUSER: ' PASS
+read -ps "Password for $NEWUSER: " PASS
 
+echo "##############################################################################"
+echo "##############################################################################"
 if [[ $OS = "Ubuntu" || $OS = "Debian" ]]
     then
-    echo 'Installing Wazuh Agent for $OS'
+    echo "Installing Wazuh Agent for $OS"
     wget $DEB_REPOSITORIE -O wazuh-agent.deb && chmod +x wazuh-agent.deb
-    WAZUH_MANAGER='$WazuhManager' dpkg -i wazuh-agent.deb
+    WAZUH_MANAGER="$WazuhManager" dpkg -i wazuh-agent.deb
     else
-    echo 'Installing Wazuh Agent for $OS'
+    echo "Installing Wazuh Agent for $OS"
     wget $RPM_REPOSITORIE -O wazuh-agent.rpm && chmod +x wazuh-agent.rpm
-    WAZUH_MANAGER='$WazuhManager' rpm -i wazuh-agent.rpm
+    WAZUH_MANAGER="$WazuhManager" rpm -i wazuh-agent.rpm
 
 fi
-
+echo "##############################################################################"
+echo "##############################################################################"
 if [[ $? -eq 0 ]]
     then
     echo "Remove agent file"
@@ -34,13 +37,26 @@ if [[ $? -eq 0 ]]
     exit 1
 fi    
 
+echo "##############################################################################"
+echo "##############################################################################"
+echo "Enable && start wazuh agent"
 # Reload and enable services
 systemctl daemon-reload
 systemctl enable wazuh-agent
 systemctl start wazuh-agent.service
 
+echo "##############################################################################"
+echo "##############################################################################"
+echo "Creating user"
 #Create user and add wazuh group
 useradd -p $(openssl passwd -1 $PASS) $NEWUSER && usermod -aG wazuh $NEWUSER
 
+echo "##############################################################################"
+echo "##############################################################################"
+echo "Adding ssh config"
 #Add user config ssh
-[[ -e /etc/ssh/sshd_config ]] &&  echo 'AllowUsers $NEWUSER' >> /etc/ssh/sshd_config
+[[ -e /etc/ssh/sshd_config ]] &&  echo "AllowUsers $NEWUSER" >> /etc/ssh/sshd_config
+
+echo "##############################################################################"
+echo "##############################################################################"
+echo "Done script"
