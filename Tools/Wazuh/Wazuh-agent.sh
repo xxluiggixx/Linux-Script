@@ -58,4 +58,11 @@ echo "Adding ssh config"
 
 echo "##############################################################################"
 echo "##############################################################################"
+echo "Adding sudoer config for service"
+COMMAND=$(whereis systemctl | awk '{print $2}')
+#Add user sudoers
+[[ -e /etc/sudoers ]] &&  echo "$NEWUSER seguridad ALL = NOPASSWD: $COMMAND restart wazuh-agent.service" >> /etc/sudoers
+
+echo "##############################################################################"
+echo "##############################################################################"
 echo "Done script"
