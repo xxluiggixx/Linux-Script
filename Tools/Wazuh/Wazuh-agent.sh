@@ -4,27 +4,32 @@
 # and create user seguridad for management
 #Created: 6-5-24
 #Author: García Salado Luis María
+
+OS=$(hostnamectl | grep -i "operating" | awk '{print $3}')
+ARCHITECTURE=$(hostnamectl | grep -i "Architecture" | awk '{print $2}')
+
 RPM_REPOSITORIE="https://packages.wazuh.com/4.x/yum/wazuh-agent-4.7.4-1.x86_64.rpm"
 DEB_REPOSITORIE="https://packages.wazuh.com/4.x/apt/pool/main/w/wazuh-agent/wazuh-agent_4.7.4-1_amd64.deb"
-OS=$(hostnamectl | grep -i "operating" | awk '{print $3}')
-
 
 read -p "Wazuh Manager IP: " WazuhManager 
 read -p "New user name: " NEWUSER 
 
 echo "##############################################################################"
 echo "##############################################################################"
-if [[ $OS = "Ubuntu" || $OS = "Debian" ]]
-    then
-    echo "Installing Wazuh Agent for $OS"
-    wget $DEB_REPOSITORIE -O wazuh-agent.deb && chmod +x wazuh-agent.deb
-    WAZUH_MANAGER="$WazuhManager" dpkg -i wazuh-agent.deb
-    else
-    echo "Installing Wazuh Agent for $OS"
-    wget $RPM_REPOSITORIE -O wazuh-agent.rpm && chmod +x wazuh-agent.rpm
-    WAZUH_MANAGER="$WazuhManager" rpm -i wazuh-agent.rpm
+if [[ !-e /etc/sudoers ]] then
 
-fi
+    if [[ $OS = "Ubuntu" || $OS = "Debian" ]]
+        then
+        echo "Installing Wazuh Agent for $OS"
+        if [[ -e /etc/sudoers ]] then
+        [[ ! -e ./wazuh-agent.deb ]] && wget $DEB_REPOSITORIE -O wazuh-agent.deb && chmod +x wazuh-agent.deb || echo "File wazuh-agent exist"
+        WAZUH_MANAGER="$WazuhManager" dpkg -i wazuh-agent.deb
+        else
+        echo "Installing Wazuh Agent for $OS"
+        [[ ! -e ./wazuh-agent.rpm ]] && wget $RPM_REPOSITORIE -O wazuh-agent.rpm && chmod +x wazuh-agent.rpm || echo "File wazuh-agent exist"
+        WAZUH_MANAGER="$WazuhManager" rpm -i wazuh-agent.rpm
+
+    fi
 echo "##############################################################################"
 echo "##############################################################################"
 if [[ $? -eq 0 ]]
